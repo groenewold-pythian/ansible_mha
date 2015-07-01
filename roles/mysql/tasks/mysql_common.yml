@@ -22,6 +22,7 @@
           - Percona-Server-client-55
           - Percona-Server-server-55
           - Percona-Server-shared-55
+          - Percona-Server-shared-compat
      tags: comm
 
    - service: name=mysql enabled=yes
