@@ -18,7 +18,7 @@
 #  tags: streaming_backup
 
 - name: Streaming the backup from {{ backup_src }} to {{ inventory_hostname }} 
-  shell: ssh -c arcfour256 -q -o StrictHostKeyChecking=no {{backup_src}} '(ulimit -n 8192; innobackupex --no-version-check --parallel=50 --slave-info --socket=/var/lib/mysql/mysql.sock --user={{ my_backup_user }} --password='{{ my_backup_pass }}' --tmpdir={{ backup_dir }}/tmp --defaults-file=/etc/my.cnf --stream=xbstream --extra-lsndir={{ backup_dir}}/lsn_incr {{ backup_dir }}/full/ )' | ssh -o StrictHostKeyChecking=no -c arcfour256 -q {{ inventory_hostname }} " xbstream -x -v -C {{ datadir }}"
+  shell: ssh -c arcfour256 -q -o StrictHostKeyChecking=no {{backup_src}} '(ulimit -n 8192; innobackupex --no-version-check  --slave-info --socket=/var/lib/mysql/mysql.sock --user={{ my_backup_user }} --password='{{ my_backup_pass }}' --tmpdir={{ backup_dir }}/tmp --defaults-file=/etc/my.cnf --stream=xbstream --extra-lsndir={{ backup_dir}}/lsn_incr {{ backup_dir }}/full/ )' | ssh -o StrictHostKeyChecking=no -c arcfour256 -q {{ inventory_hostname }} " xbstream -x -v -C {{ datadir }}"
   tags: 
         - streaming_backup
         - just_streaming_backup
@@ -38,7 +38,7 @@
 
 
 - name: Ensure mysql is running
-  service: name=mysqld state=started
+  service: name=mysql state=started
   sudo: yes
   tags: streaming_backup
 

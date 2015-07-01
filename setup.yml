@@ -2,6 +2,7 @@
 - hosts: system
   user: root
   roles:
+  - ansible-role-repo-epel
   - common
 
 

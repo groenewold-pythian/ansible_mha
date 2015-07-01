@@ -19,11 +19,12 @@
    - name: Install MySQL-Oracle Server
      yum: pkg={{ item }} state=present 
      with_items:
-          - mysql55
-          - mysql55-server
+          - Percona-Server-client-55
+          - Percona-Server-server-55
+          - Percona-Server-shared-55
      tags: comm
 
-   - service: name=mysqld enabled=yes
+   - service: name=mysql enabled=yes
 
    # CONFIGURE MYSQL
    - name: Create Mysql configuration file
@@ -54,7 +55,7 @@
       - myconf
 
    - name: Ensure mysql is running
-     service: name=mysqld state=started
+     service: name=mysql state=started
      when: "mysql_role == 'master' and bootstrap_enabled" 
 
    - name: Update first time password

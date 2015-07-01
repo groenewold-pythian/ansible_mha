@@ -6,13 +6,13 @@ thread_cache_size: 1024
 auto_increment_offset: 1
 mysql_user: mysql
 mysql_group: mysql
-mysql_logdir: /db/log
+mysql_logdir: /var/log
 mysql_port: 3306
 mysql_idb_bps: ''
 mysql_long_query_time: 1
 mysql_log_queries_index: False
 mysql_perf_schema: 'OFF'
-backup_dir: /db/backup
+backup_dir: /tmp
 repl_from_master: True 
 skip_change_master: False
 
