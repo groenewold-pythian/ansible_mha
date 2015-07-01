@@ -13,16 +13,10 @@ Currently it supports the following:
 Requirements:
   - ssh client
   - ansible
-  - EC2 access
-  
-AWS Console:
-- generate AWS key
-- create a security group with similar or wider policy:
-    - ssh from your ip
-    - ssh,mysql traffic between the machines
-- [generate an ssh key and add it to EC2](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
+  - vagrant
+  - virtualbox
 
-add your credentials (aws key, private key, pubic key) to the encrypted system.yml (default password: 42)
+add your credentials to the encrypted system.yml (default password: 42)
 ```
 ansible-vault edit group_vars/system.yml
 ```
@@ -31,22 +25,21 @@ you can change the password with
 ansible-vault rekey group_vars/system.yml
 ```
 ###Spin up instances 
-Spin up 4 instances via the AWS consolte, we will use them as:
+Spin up 4 instances, we will use them as:
  - 1 master
  - 2 slaves 
  - 1 MHA manager node
 
-AMI: RightImage_CentOS_6.5_x64_v14.1.3_HVM_EBS (ami-14211709 - us-east)
+Set up ssh passwordless authentication from the host you are running ansible
+
+Vagrant box: chef/centos-6.5
 
 Define at least these tags:
  - Name = anything
- - Env = anything: dev
-
-Security group: see above
 
 Edit the sample_cluster inventory file and change the ip addresses
 ```
-16:07:55-mszel@42:~/github/ansible_mha$ cat clusters/sample_cluster
+~/github/ansible_mha$ cat clusters/sample_cluster
 #ROLES
 ======
 [system]
@@ -54,11 +47,10 @@ Edit the sample_cluster inventory file and change the ip addresses
 52.28.23.4    mycnf=plsc_s2 mysql_role=slave  nickname=dev-plsc-s1
 52.28.19.44   mysql_role=slave  nickname=dev-plsc-s2
 
-52.28.3.145   mysql_role=mha_manager ephemeral=true
+52.28.3.145   mysql_role=mha_manager
 
 [system:vars]
 cluster_id=dev-plscdemo
-env=dev
 
 [databases:vars]
 master_host=52.28.26.105
