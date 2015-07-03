@@ -1,21 +1,21 @@
 #ROLES
 ======
 [system]
-192.168.30.3   mycnf=plsc_s1 mysql_role=master  nickname=dev-plsc-m
-192.168.30.4    mycnf=plsc_s2 mysql_role=slave  nickname=dev-plsc-s1
-192.168.30.5   mysql_role=slave  nickname=dev-plsc-s2
+192.168.33.11	mycnf=plsc_s1 mysql_role=master  nickname=dev-plsc-m
+192.168.33.12    mycnf=plsc_s2 mysql_role=slave  nickname=dev-plsc-s1
+192.168.33.13	mysql_role=slave  nickname=dev-plsc-s2
 
-192.168.30.2   mysql_role=mha_manager
+192.168.33.10	mysql_role=mha_manager
 
 [system:vars]
 cluster_id=dev-plscdemo
 
 [databases:vars]
-master_host=192.168.30.3
+master_host=192.168.33.11
 
 # Group to install and configure MySQL
 [databases]
-192.168.30.3  mysql_role=master server_id=1 
-192.168.30.4   mysql_role=slave server_id=2 backup_src=192.168.30.3
-192.168.30.5  mysql_role=slave server_id=3 backup_src=192.168.30.3
+192.168.33.11	mysql_role=master server_id=1 
+192.168.33.12	mysql_role=slave server_id=2 backup_src=192.168.33.11
+192.168.33.13	mysql_role=slave server_id=3 backup_src=192.168.33.11
 

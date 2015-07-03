@@ -34,6 +34,16 @@ Set up ssh passwordless authentication from the host you are running ansible
 
 Vagrant box: chef/centos-6.5
 
+Can use: 
+```vagrant up```
+from this directory to spawn 4 servers.
+See setup/README.md for details.
+Run the playbook from setup to install ssh keys and EPEL repo.
+```
+ansible-playbook -c paramiko -i setup/hosts setup/setup.yml --ask-pass --sudo
+```
+
+
 Define at least these tags:
  - Name = anything
 
